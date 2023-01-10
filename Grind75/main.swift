@@ -57,7 +57,40 @@ class Solution {
         }
         return stack.isEmpty ? true : false
     }
+    
+    // 21. Merge Two Sorted Lists https://leetcode.com/problems/merge-two-sorted-lists/description/
+    func mergeTwoLists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
+        var tempNode = ListNode(-1)
+        var resultNode = tempNode
+        var l1 = list1
+        var l2 = list2
+        
+        while l1 != nil && l2 != nil {
+            if l1!.val > l2!.val {
+                tempNode.next = l2
+                l2 = l2?.next
+            } else {
+                tempNode.next = l1
+                l1 = l1?.next
+            }
+            tempNode = tempNode.next!
+        }
+        tempNode.next = l1 == nil ? l2 : l1
+        
+        return resultNode.next
+    }
 }
+
+// 21. Merge Two Sorted Lists
+// Given by leetCode
+// Definition for singly-linked list.
+ public class ListNode {
+     public var val: Int
+     public var next: ListNode?
+     public init() { self.val = 0; self.next = nil; }
+     public init(_ val: Int) { self.val = val; self.next = nil; }
+     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+ }
 
 let solution = Solution()
 
