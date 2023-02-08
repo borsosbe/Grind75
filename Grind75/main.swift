@@ -79,6 +79,25 @@ class Solution {
         
         return resultNode.next
     }
+    
+    // 121. Best Time to Buy and Sell Stock https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+    func maxProfit(_ prices: [Int]) -> Int {
+        var maxProfit = 0
+        var left = 0
+        var right = 1
+        
+        while right < prices.count {
+            if prices[left] > prices[right] {
+                left = right
+            } else {
+                let currentProfit = prices[right] - prices[left]
+                maxProfit = maxProfit > currentProfit ? maxProfit : currentProfit
+            }
+            right += 1
+        }
+        
+        return maxProfit
+    }
 }
 
 // 21. Merge Two Sorted Lists
@@ -104,3 +123,7 @@ assert(solution.isValid("()") == true)
 assert(solution.isValid("()[]{}") == true)
 assert(solution.isValid("(]") == false)
 assert(solution.isValid("{[]}") == true)
+
+// 121. Best Time to Buy and Sell Stock
+assert(solution.maxProfit([7,1,5,3,6,4]) == 5)
+assert(solution.maxProfit([7,6,4,3,1]) == 0)
