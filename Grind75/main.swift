@@ -98,6 +98,30 @@ class Solution {
         
         return maxProfit
     }
+    
+    // 125. Valid Palindrome https://leetcode.com/problems/valid-palindrome/
+    func isPalindrome(_ s: String) -> Bool {
+        let sA = Array(s)
+        var i = 0
+        var j = sA.count - 1
+        
+        while i < j {
+            if !sA[i].isLetter, !sA[i].isNumber {
+                i += 1
+                continue
+            }
+            if !sA[j].isLetter, !sA[j].isNumber {
+                j -= 1
+                continue
+            }
+            if sA[i].lowercased() != sA[j].lowercased() {
+                return false
+            }
+            i += 1
+            j -= 1
+        }
+        return true
+    }
 }
 
 // 21. Merge Two Sorted Lists
@@ -127,3 +151,8 @@ assert(solution.isValid("{[]}") == true)
 // 121. Best Time to Buy and Sell Stock
 assert(solution.maxProfit([7,1,5,3,6,4]) == 5)
 assert(solution.maxProfit([7,6,4,3,1]) == 0)
+
+// 125. Valid Palindrome
+assert(solution.isPalindrome("A man, a plan, a canal: Panama") == true)
+assert(solution.isPalindrome("race a car") == false)
+assert(solution.isPalindrome(" ") == true)
