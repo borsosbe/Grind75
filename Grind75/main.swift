@@ -61,7 +61,7 @@ class Solution {
     // 21. Merge Two Sorted Lists https://leetcode.com/problems/merge-two-sorted-lists/description/
     func mergeTwoLists(_ list1: ListNode?, _ list2: ListNode?) -> ListNode? {
         var tempNode = ListNode(-1)
-        var resultNode = tempNode
+        let resultNode = tempNode
         var l1 = list1
         var l2 = list2
         
@@ -151,6 +151,30 @@ class Solution {
         root.right = invertTreeRecursive(temp)
         return root
     }
+    
+    // 242. Valid Anagram - https://leetcode.com/problems/valid-anagram/
+    func isAnagram(_ s: String, _ t: String) -> Bool {
+        if s.count != t.count { return false }
+        var dicS = [Character : Int]()
+        var dicT = [Character : Int]()
+        let sA = Array(s)
+        let tA = Array(t)
+
+        for i in 0..<s.count {
+            updateDic(&dicS, sA[i])
+            updateDic(&dicT, tA[i])
+        }
+
+        return dicS == dicT
+        
+        func updateDic(_  dic: inout [Character : Int], _ char: Character) {
+            if let val = dic[char] {
+                dic[char] = val + 1
+            } else {
+                dic[char] = 1
+            }
+        }
+    }
 }
 
 // 21. Merge Two Sorted Lists
@@ -180,7 +204,6 @@ public class TreeNode {
     }
 }
 
-
 let solution = Solution()
 
 // 1. Two Sum Test Cases
@@ -202,3 +225,7 @@ assert(solution.maxProfit([7,6,4,3,1]) == 0)
 assert(solution.isPalindrome("A man, a plan, a canal: Panama") == true)
 assert(solution.isPalindrome("race a car") == false)
 assert(solution.isPalindrome(" ") == true)
+
+// 125. Valid Palindrome
+assert(solution.isAnagram("anagram", "nagaram") == true)
+assert(solution.isAnagram("rat", "car") == false)
