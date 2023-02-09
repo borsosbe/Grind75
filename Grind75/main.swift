@@ -122,18 +122,64 @@ class Solution {
         }
         return true
     }
+    
+    // 226. Invert Binary Tree https://leetcode.com/problems/invert-binary-tree/
+    // BFS - queue
+    func invertTree(_ root: TreeNode?) -> TreeNode? {
+        guard let root = root else { return nil }
+        var queue = [TreeNode]()
+        queue.append(root)
+        while !queue.isEmpty {
+            let next = queue.removeFirst()
+            let temp = next.left
+            next.left = next.right
+            next.right = temp
+            if let l = next.left {
+                queue.append(l)
+            }
+            if let r = next.right {
+                queue.append(r)
+            }
+        }
+        return root
+    }
+    // DFS - recursive
+    func invertTreeRecursive(_ root: TreeNode?) -> TreeNode? {
+        guard let root = root else { return nil }
+        let temp = root.left
+        root.left = invertTreeRecursive(root.right)
+        root.right = invertTreeRecursive(temp)
+        return root
+    }
 }
 
 // 21. Merge Two Sorted Lists
 // Given by leetCode
 // Definition for singly-linked list.
- public class ListNode {
-     public var val: Int
-     public var next: ListNode?
-     public init() { self.val = 0; self.next = nil; }
-     public init(_ val: Int) { self.val = val; self.next = nil; }
-     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
- }
+public class ListNode {
+    public var val: Int
+    public var next: ListNode?
+    public init() { self.val = 0; self.next = nil; }
+    public init(_ val: Int) { self.val = val; self.next = nil; }
+    public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+}
+
+// 226. Invert Binary Tree
+// Given by leetCode
+// Definition for a binary tree node.
+public class TreeNode {
+    public var val: Int
+    public var left: TreeNode?
+    public var right: TreeNode?
+    public init() { self.val = 0; self.left = nil; self.right = nil; }
+    public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+    public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+        self.val = val
+        self.left = left
+        self.right = right
+    }
+}
+
 
 let solution = Solution()
 
