@@ -175,6 +175,25 @@ class Solution {
             }
         }
     }
+    
+    // 704. Binary Search - https://leetcode.com/problems/binary-search/
+    func search(_ nums: [Int], _ target: Int) -> Int {
+        var left = 0
+        var right = nums.count - 1
+
+        while left <= right {
+            let mid = (left+right) / 2
+            if nums[mid] < target {
+                left = mid + 1
+            } else if nums[mid] > target {
+                right = mid - 1
+            } else {
+                return mid
+            }
+        }
+
+        return -1
+    }
 }
 
 // 21. Merge Two Sorted Lists
@@ -229,3 +248,8 @@ assert(solution.isPalindrome(" ") == true)
 // 125. Valid Palindrome
 assert(solution.isAnagram("anagram", "nagaram") == true)
 assert(solution.isAnagram("rat", "car") == false)
+
+// 704. Binary Search
+assert(solution.search([-1,0,3,5,9,12], 9) == 4)
+assert(solution.search([-1,0,3,5,9,12], 2) == -1)
+assert(solution.search([5], 5) == 0)
