@@ -215,17 +215,47 @@ class Solution {
     
     // 235. Lowest Common Ancestor of a Binary Search Tree - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
     func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
-            guard var root = root, let p = p, let q = q else {
-                return nil
-            }
-             if p.val < root.val && q.val < root.val {
-                return lowestCommonAncestor(root.left, p, q)
-            } else if p.val > root.val && q.val > root.val {
-                return lowestCommonAncestor(root.right, p, q)
-            } else {
-                return root
+        guard let root = root, let p = p, let q = q else {
+            return nil
+        }
+         if p.val < root.val && q.val < root.val {
+            return lowestCommonAncestor(root.left, p, q)
+        } else if p.val > root.val && q.val > root.val {
+            return lowestCommonAncestor(root.right, p, q)
+        } else {
+            return root
+        }
+    }
+    
+    // 110. Balanced Binary Tree https://leetcode.com/problems/balanced-binary-tree/
+    func isBalanced(_ root: TreeNode?) -> Bool {
+        return dfs(root).0
+        
+        func dfs(_ root: TreeNode?) -> (Bool, Int) {
+            guard let root = root else { return (true, 0) }
+            let left = dfs(root.left)
+            let right = dfs(root.right)
+            let balanced = (left.0 && right.0) &&
+                                abs(left.1 - right.1) <= 1
+            return (balanced, 1 + max(left.1, right.1))
+        }
+    }
+    
+    // 141. Linked List Cycle https://leetcode.com/problems/linked-list-cycle/description/
+    func hasCycle(_ head: ListNode?) -> Bool {
+        var slow = head
+        var fast = head
+
+        while fast != nil && fast?.next != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+            if slow === fast { // check if their at the same memory place
+                return true
             }
         }
+
+        return false
+    }
 }
 
 // 21. Merge Two Sorted Lists
@@ -289,3 +319,5 @@ assert(solution.search([5], 5) == 0)
 // 733. Flood Fill
 assert(solution.floodFill([[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2) == [[2,2,2],[2,2,0],[2,0,1]])
 assert(solution.floodFill([[0,0,0],[0,0,0]], 0, 0, 0) == [[0,0,0],[0,0,0]])
+
+
