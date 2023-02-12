@@ -241,7 +241,7 @@ class Solution {
         }
     }
     
-    // 141. Linked List Cycle https://leetcode.com/problems/linked-list-cycle/description/
+    // 141. Linked List Cycle https://leetcode.com/problems/linked-list-cycle/
     func hasCycle(_ head: ListNode?) -> Bool {
         var slow = head
         var fast = head
@@ -256,6 +256,29 @@ class Solution {
         }
 
         return false
+    }
+    
+    // 232. Implement Queue using Stacks https://leetcode.com/problems/implement-queue-using-stacks/
+    class MyQueue {
+        private var q = [Int]()
+
+        init() {}
+        
+        func push(_ x: Int) {
+            q.append(x)
+        }
+        
+        func pop() -> Int {
+            return q.removeFirst()
+        }
+        
+        func peek() -> Int {
+            return q[0]
+        }
+        
+        func empty() -> Bool {
+            return q.isEmpty ? true : false
+        }
     }
 }
 
