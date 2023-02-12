@@ -249,7 +249,8 @@ class Solution {
         while fast != nil && fast?.next != nil {
             slow = slow?.next
             fast = fast?.next?.next
-            if slow === fast { // check if their at the same memory place
+            // check if their at the same memory place
+            if slow === fast {
                 return true
             }
         }
