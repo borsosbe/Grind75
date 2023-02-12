@@ -194,6 +194,24 @@ class Solution {
 
         return -1
     }
+    
+    // 733. Flood Fill - https://leetcode.com/problems/flood-fill/
+    func floodFill(_ image: [[Int]], _ sr: Int, _ sc: Int, _ color: Int) -> [[Int]] {
+        var image = image
+        dfs(&image, sr, sc, image[sr][sc], color)
+        return image
+        
+        func dfs(_ image: inout [[Int]], _ sr: Int, _ sc: Int, _ current: Int, _ color: Int) {
+                if (sr < 0 || sr >= image.count) { return }
+                if (sc < 0 || sc >= image[0].count) { return }
+                if image[sr][sc] != current || image[sr][sc] == color { return }
+                image[sr][sc] = color
+                dfs(&image, sr + 1, sc, current, color) // right
+                dfs(&image, sr - 1, sc, current, color) // left
+                dfs(&image, sr, sc + 1, current, color) // up
+                dfs(&image, sr, sc - 1, current, color) // down
+            }
+    }
 }
 
 // 21. Merge Two Sorted Lists
@@ -253,3 +271,7 @@ assert(solution.isAnagram("rat", "car") == false)
 assert(solution.search([-1,0,3,5,9,12], 9) == 4)
 assert(solution.search([-1,0,3,5,9,12], 2) == -1)
 assert(solution.search([5], 5) == 0)
+
+// 733. Flood Fill
+assert(solution.floodFill([[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2) == [[2,2,2],[2,2,0],[2,0,1]])
+assert(solution.floodFill([[0,0,0],[0,0,0]], 0, 0, 0) == [[0,0,0],[0,0,0]])
