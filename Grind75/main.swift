@@ -280,6 +280,29 @@ class Solution {
             return q.isEmpty ? true : false
         }
     }
+    
+    // 278. First Bad Version https://leetcode.com/problems/first-bad-version/
+    func firstBadVersion(_ n: Int) -> Int {
+            var leftIndex = 1
+            var rightIndex = n
+            var firstBadVersion = n
+            
+            while leftIndex <= rightIndex {
+                var middleValue = (leftIndex + rightIndex) / 2
+                if isBadVersion(middleValue) {
+                    firstBadVersion = middleValue
+                    rightIndex = middleValue - 1
+                } else {
+                    leftIndex = middleValue + 1
+                }
+            }
+            return firstBadVersion
+        
+            // The knows API is defined in the parent class VersionControl.
+            func isBadVersion(_ version: Int) -> Bool {
+                return false
+            }
+        }
 }
 
 // 21. Merge Two Sorted Lists
